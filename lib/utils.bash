@@ -36,34 +36,35 @@ list_all_versions() {
 getArch() {
   ARCH=$(uname -m)
   case $ARCH in
-    armv*) ARCH="arm" ;;
-    aarch64) ARCH="arm64" ;;
-    x86) ARCH="386" ;;
-    x86_64) ARCH="amd64" ;;
-    i686) ARCH="386" ;;
-    i386) ARCH="386" ;;
+  armv*) ARCH="arm" ;;
+  aarch64) ARCH="arm64" ;;
+  x86) ARCH="386" ;;
+  x86_64) ARCH="amd64" ;;
+  i686) ARCH="386" ;;
+  i386) ARCH="386" ;;
   esac
   echo "$ARCH"
 }
 
-echoerr() { printf "%s\n" "$*" >&2;}
+echoerr() { printf "%s\n" "$*" >&2; }
 
 download_release() {
   local version filename url
   version="$1"
   filename="$2"
   os=$(uname | tr '[:upper:]' '[:lower:]')
+  arch=$(getArch)
 
   if [ $os == "linux" ]; then
     url="$GH_REPO/releases/download/${version}/iam-policy-json-to-terraform_amd64"
   elif [ $os == "darwin"]; then
-    if [ ${$(getArch),0,3} == "arm" ]; then
+    if [ ${arch,0,3} == "arm" ]; then
       url="$GH_REPO/releases/download/${version}/iam-policy-json-to-terraform_darwin_arm"
     else
       url="$GH_REPO/releases/download/${version}/iam-policy-json-to-terraform_darwin"
     fi
   else
-    echoerr "No executable available for ${os} and $(getArch)."
+    echoerr "No executable available for ${os} and ${arch}."
     exit 1
   fi
 
