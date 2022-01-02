@@ -4,7 +4,7 @@ set -euo pipefail
 
 GH_REPO="https://github.com/flosell/iam-policy-json-to-terraform/"
 TOOL_NAME="iam-policy-json-to-terraform"
-TOOL_TEST="iam-policy-json-to-terraform_amd64 --version"
+TOOL_TEST="iam-policy-json-to-terraform --version"
 
 fail() {
   echo -e "asdf-$TOOL_NAME: $*"
@@ -84,10 +84,12 @@ install_version() {
     mkdir -p "$install_path"
     cp -r "$ASDF_DOWNLOAD_PATH"/* "$install_path"
 
-    local tool_cmd
-    tool_cmd="$(echo "$TOOL_TEST" | cut -d' ' -f1)"
-    chmod u+x "$install_path/$TOOL_NAME"
-    test -x "$install_path/$TOOL_NAME" || fail "Expected $install_path/bin/$tool_cmd to be executable."
+    # local tool_cmd
+    # tool_cmd="$(echo "$TOOL_TEST" | cut -d' ' -f1)"
+    mkdir "$install_path/bin"
+    mv "$install_path/$TOOL_NAME"  "$install_path/$TOOL_NAME/$TOOL_NAME"
+    chmod u+x "$install_path/bin/$TOOL_NAME"
+    test -x "$install_path/bin/$TOOL_NAME" || fail "Expected $install_path/bin/$TOOL_NAME to be executable."
 
     echo "$TOOL_NAME $version installation was successful!"
   ) || (
