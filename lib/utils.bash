@@ -87,7 +87,7 @@ install_version() {
     # local tool_cmd
     # tool_cmd="$(echo "$TOOL_TEST" | cut -d' ' -f1)"
     mkdir "$install_path/bin"
-    mv "$install_path/$TOOL_NAME"  "$install_path/bin/$TOOL_NAME"
+    mv "$install_path/$TOOL_NAME" "$install_path/bin/$TOOL_NAME"
     chmod u+x "$install_path/bin/$TOOL_NAME"
     test -x "$install_path/bin/$TOOL_NAME" || fail "Expected $install_path/bin/$TOOL_NAME to be executable."
 
