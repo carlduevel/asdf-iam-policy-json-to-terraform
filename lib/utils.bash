@@ -58,7 +58,7 @@ download_release() {
   if [ "$os" == "linux" ]; then
     url="$GH_REPO/releases/download/${version}/iam-policy-json-to-terraform_amd64"
   elif [ "$os" == "darwin" ]; then
-    if [ ${"$arch",0,3} == "arm" ]; then
+    if [[ $arch == arm* ]]; then
       url="$GH_REPO/releases/download/${version}/iam-policy-json-to-terraform_darwin_arm"
     else
       url="$GH_REPO/releases/download/${version}/iam-policy-json-to-terraform_darwin"
