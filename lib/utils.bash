@@ -4,7 +4,6 @@ set -euo pipefail
 
 GH_REPO="https://github.com/flosell/iam-policy-json-to-terraform/"
 TOOL_NAME="iam-policy-json-to-terraform"
-TOOL_TEST="iam-policy-json-to-terraform --version"
 
 fail() {
   echo -e "asdf-$TOOL_NAME: $*"
