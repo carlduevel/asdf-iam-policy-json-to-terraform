@@ -22,10 +22,21 @@ jobs:
   shellfmt:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
+      - name: Checkout
         uses: actions/checkout@v2
 
+      - name: Install asdf
+        uses: asdf-vm/actions/setup@v1
+
+      - name: asdf cache
+        id: asdf-cache
+        uses: actions/cache@v2
+        with:
+          path: ~/.asdf/
+          key: ${{ runner.os }}-${{ hashFiles('**/.tool-versions') }}
+
       - name: Install asdf dependencies
+        if: steps.asdf-cache.outputs.cache-hit != 'true'
         uses: asdf-vm/actions/install@v1
 
       - name: List file to shfmt
@@ -33,4 +44,3 @@ jobs:
 
       - name: Run shfmt
         run: scripts/shfmt.bash
-
